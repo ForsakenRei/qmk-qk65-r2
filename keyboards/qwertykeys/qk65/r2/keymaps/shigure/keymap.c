@@ -1,5 +1,5 @@
 /*
-Copyright 2022 qwertykeys
+Copyright 2022 Qwertykeys
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,6 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+#include QMK_KEYBOARD_H
 
 #include QMK_KEYBOARD_H
 
@@ -49,15 +51,15 @@ enum custom_tap_dance
 // Declare the functions to be used with your tap dance key(s)
 
 // Function associated with all tap dances
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(tap_dance_state_t *state);
 
 // Functions associated with individual tap dances
-void caps_finished(qk_tap_dance_state_t *state, void *user_data);
-void caps_reset(qk_tap_dance_state_t *state, void *user_data);
-void fn_finished(qk_tap_dance_state_t *state, void *user_data);
-void fn_reset(qk_tap_dance_state_t *state, void *user_data);
-void sft_finished(qk_tap_dance_state_t *state, void *user_data);
-void sft_reset(qk_tap_dance_state_t *state, void *user_data);
+void caps_finished(tap_dance_state_t *state, void *user_data);
+void caps_reset(tap_dance_state_t *state, void *user_data);
+void fn_finished(tap_dance_state_t *state, void *user_data);
+void fn_reset(tap_dance_state_t *state, void *user_data);
+void sft_finished(tap_dance_state_t *state, void *user_data);
+void sft_reset(tap_dance_state_t *state, void *user_data);
 
 #define CAP_LYR TD(CAPS_LAYR)
 #define FN_L2 TD(KCFN_L2)
@@ -77,7 +79,7 @@ enum
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [0] = LAYOUT_65_ansi_blocker(
+    [0] = LAYOUT_hotswap(
         QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
         CAP_LYR, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGDN,
@@ -85,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    FN_L2,   KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [1] = LAYOUT_65_ansi_blocker(
+    [1] = LAYOUT_hotswap(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,
         _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
@@ -93,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   KC_DEL,                             _______, CTL_APP,          _______, _______, _______
     ),
 
-    [2] = LAYOUT_65_ansi_blocker(
+    [2] = LAYOUT_hotswap(
         KC_GRV,  _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, KC_PMNS, KC_PPLS, _______, KC_SLEP,
         _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, KC_P4,   KC_P5,   KC_P6,   _______, KC_PAST, KC_PSLS, _______, _______,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______,          _______, _______,
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, GUI_TOG, _______,                   _______,                            _______, _______,          _______, _______, _______
     ),
 
-    [3] = LAYOUT_65_ansi_blocker(
+    [3] = LAYOUT_hotswap(
         _______, _______, _______, _______, NK_TOGG, KC_VOLD, KC_VOLU, KC_MPLY, KC_MUTE, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          EE_CLR,  _______,
@@ -112,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Determine the current tap dance state
-td_state_t cur_dance(qk_tap_dance_state_t *state)
+td_state_t cur_dance(tap_dance_state_t *state)
 {
     if (state->count == 1)
     {
@@ -141,7 +143,7 @@ static td_tap_t sft_tap_state = {
     .state = TD_NONE};
 
 // Functions that control what our tap dance key does
-void caps_finished(qk_tap_dance_state_t *state, void *user_data)
+void caps_finished(tap_dance_state_t *state, void *user_data)
 {
     caps_tap_state.state = cur_dance(state);
     switch (caps_tap_state.state)
@@ -170,7 +172,7 @@ void caps_finished(qk_tap_dance_state_t *state, void *user_data)
     }
 };
 
-void caps_reset(qk_tap_dance_state_t *state, void *user_data)
+void caps_reset(tap_dance_state_t *state, void *user_data)
 {
     // If the key was held down and now is released then switch off the layer
     if (caps_tap_state.state == TD_SINGLE_HOLD)
@@ -181,7 +183,7 @@ void caps_reset(qk_tap_dance_state_t *state, void *user_data)
 };
 
 // tap dance for Fn
-void fn_finished(qk_tap_dance_state_t *state, void *user_data)
+void fn_finished(tap_dance_state_t *state, void *user_data)
 {
     fn_tap_state.state = cur_dance(state);
     switch (fn_tap_state.state)
@@ -208,7 +210,7 @@ void fn_finished(qk_tap_dance_state_t *state, void *user_data)
     }
 };
 
-void fn_reset(qk_tap_dance_state_t *state, void *user_data)
+void fn_reset(tap_dance_state_t *state, void *user_data)
 {
     switch (fn_tap_state.state)
     {
@@ -220,7 +222,7 @@ void fn_reset(qk_tap_dance_state_t *state, void *user_data)
     }
 };
 
-void sft_finished(qk_tap_dance_state_t *state, void *user_data)
+void sft_finished(tap_dance_state_t *state, void *user_data)
 {
     sft_tap_state.state = cur_dance(state);
     switch (sft_tap_state.state)
@@ -248,7 +250,7 @@ void sft_finished(qk_tap_dance_state_t *state, void *user_data)
     }
 };
 
-void sft_reset(qk_tap_dance_state_t *state, void *user_data)
+void sft_reset(tap_dance_state_t *state, void *user_data)
 {
     switch (sft_tap_state.state)
     {
@@ -263,7 +265,7 @@ void sft_reset(qk_tap_dance_state_t *state, void *user_data)
 };
 
 // Associate tap dance key with its functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [CAPS_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps_finished, caps_reset),
     [KCFN_L2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fn_finished, fn_reset),
     [RSFT_LAY3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sft_finished, sft_reset)};

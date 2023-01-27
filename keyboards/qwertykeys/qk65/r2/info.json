@@ -1,18 +1,15 @@
 {
-    "keyboard_name": "QK65 Hotswap",
-    "manufacturer": "qwertykeys",
+    "keyboard_name": "qk65 Hotswap",
+    "manufacturer": "Qwertykeys",
     "url": "",
-    "maintainer": "qwertykeys",
+    "maintainer": "Qwertykeys",
     "usb": {
         "vid": "0x4F53",
         "pid": "0x514B",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT_hotswap": "LAYOUT_65_ansi_blocker"
-    },
     "layouts": {
-        "LAYOUT_65_ansi_blocker": {
+        "LAYOUT_hotswap": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

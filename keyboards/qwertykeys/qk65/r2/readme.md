@@ -1,20 +1,20 @@
-# qk65 - hotswap PCB
+# qk65 - Hotswap R2 PCB
 
 ![qk65](https://i.imgur.com/kFhx5qS.png)
 
-A 65% made by qwertykeys.
+A 65% made by Qwertykeys.
 
-* Keyboard Maintainer: [qwertykeys](https://github.com/owlab-git)
-* Hardware Supported: qk65 hotswap PCB
+* Keyboard Maintainer: [Qwertykeys](https://github.com/owlab-git)
+* Hardware Supported: qk65 hotswap r2 PCB
 * Hardware Availability: 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make qwertykeys/qk65/hotswap:default
+    make qwertykeys/qk65/r2:default
 
 Flashing example for this keyboard:
 
-    make qwertykeys/qk65/hotswap:default:flash
+    make qwertykeys/qk65/r2:default:flash
 
 **Bootloader:** Press the physical reset button on the bottom side of the PCB (labeled SW1) or hold down ESC while plugging in the board.
 
