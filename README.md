@@ -2,7 +2,7 @@
 
 R2 wired white PCB is not officially supported by QMK.
 
-Owlab(QK) actually has a working [repo](https://github.com/owlab-git/qmk_firmware/) where R2 is added, with some minor fixes I can actually get a working `bin` for the R2 hotswap PCB on latest QMK repo dev branch.
+Owlab(QK) actually has a working repo where QK65 R2 was [added](https://github.com/owlab-git/qmk_firmware/tree/79b3d2aa5bcbdf6d12f6ec0f97d47177f3cca897/keyboards/qwertykeys/qk65/r2), with some minor fixes I can actually get a working `bin` for the R2 hotswap PCB on latest QMK repo dev branch.
 
 QMK toolbox have no driver for that bootloader bacause it is not merged to upstream yet, therefore you will probably need `zadig` to install the driver for windows. QK suggested the `WinUSB` drive while after I flashed it with QMK it seems I can just use `libusb-win32` for it instead. For Linux, add this line to udev rules(e.g. /etc/udev/rules.d/60-dfuse-rules or /usr/lib/udev/rules.d/60-dfuse-rules).
 
